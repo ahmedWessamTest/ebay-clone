@@ -64,9 +64,13 @@ export class NavBlankComponent implements OnInit, OnDestroy {
       return ""
     }
   }
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
     this._FlowbiteService.loadFlowbite(flowbite => {
     });
+  }
+  ngOnInit(): void {
     this._CategoriesService.getAllCategories().subscribe({
       next: (res) => {
         this.categoriesList.set(res.data);

@@ -4,6 +4,7 @@ import { userAlreadyLoggedGuard } from './core/guards/user-already-logged.guard'
 import { userLoggedGuard } from './core/guards/user-logged.guard';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { BlankLayoutComponent } from './layouts/blank-layout/blank-layout.component';
+import { HomeComponent } from './components/home/home.component';
 
 export const routes: Routes = [
   {
@@ -17,7 +18,7 @@ export const routes: Routes = [
   {
     path: '', component: BlankLayoutComponent, canActivate: [userLoggedGuard], children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', loadComponent: () => import('../app/components/home/home.component').then((c) => c.HomeComponent) },
+      { path: 'home', component:HomeComponent },
       { path: 'cart', loadComponent: () => import('../app/components/cart/cart.component').then((c) => c.CartComponent) },
       { path: 'categories/:id', loadComponent: () => import('../app/components/categories/categories.component').then((c) => c.CategoriesComponent) },
       { path: 'subCat/:catId/:subCatId', loadComponent: () => import('../app/components/sub-category-view/sub-category-view.component').then((c) => c.SubCategoryViewComponent) },
