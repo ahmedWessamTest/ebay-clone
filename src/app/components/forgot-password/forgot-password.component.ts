@@ -21,6 +21,9 @@ export class ForgotPasswordComponent {
   isLoading: WritableSignal<boolean> = signal(false);
   errorMsg: WritableSignal<string> = signal('');
   successMsg: WritableSignal<boolean> = signal(false);
+
+  setUserEmail: WritableSignal<string> = signal('');
+
   emailValidation: FormGroup = this._FormBuilder.group({
     email: [null, [RxwebValidators.required(), RxwebValidators.email(), RxwebValidators.minLength({ value: 6 })]],
   });
@@ -35,14 +38,22 @@ export class ForgotPasswordComponent {
     if (this.emailValidation.valid) {
       this.isLoading.set(true);
       this._AuthService.setForgotPassword(this.emailValidation.value).subscribe({
-        next: () => {
-          this.isLoading.set(false);
-          this.errorMsg.set("");
-          this.successMsg.set(true);
-          setTimeout(() => {
-            this.successMsg.set(false);
-            this.steps.set(2);
-          }, 2000)
+        next: (res) => {
+          console.log(res);
+
+          if (res.statusMsg === "success") {
+            this.isLoading.set(false);
+            this.errorMsg.set("");
+            this.successMsg.set(true);
+            this.ResetPassForm.patchValue({
+              'email': this.emailValidation.get('email')?.value
+            })
+            // this.setUserEmail.set(this.emailValidation.get('email')?.value);
+            setTimeout(() => {
+              this.successMsg.set(false);
+              this.steps.set(2);
+            }, 2000)
+          }
         },
         error: (err) => {
           this.isLoading.set(false);
@@ -74,7 +85,7 @@ export class ForgotPasswordComponent {
         }
       })
     } else {
-      this.codeValidation.markAllAsTouched
+      this.codeValidation.markAllAsTouched()
     }
   }
   resetPasswordSubmit(): void {
@@ -86,11 +97,9 @@ export class ForgotPasswordComponent {
           this.errorMsg.set("");
           this.successMsg.set(true);
           console.log(res);
-          this._AuthService.saveUserData(res.user);
-          localStorage.setItem('userToken', res.token);
           setTimeout(() => {
             this.successMsg.set(false);
-            this._Router.navigate(['/home']);
+            this._Router.navigate(['/login']);
           }, 2000)
         },
         error: (err) => {

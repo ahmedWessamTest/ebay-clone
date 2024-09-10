@@ -12,7 +12,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'login', loadComponent: () => import('../app/components/login/login.component').then((c) => c.LoginComponent) },
       { path: 'register', loadComponent: () => import('../app/components/register/register.component').then((c) => c.RegisterComponent) },
-      { path: 'forgot', loadComponent: () => import('../app/components/register/register.component').then((c) => c.RegisterComponent) }
+      { path: 'forgot', loadComponent: () => import('../app/components/forgot-password/forgot-password.component').then((c) => c.ForgotPasswordComponent) }
     ]
   },
   {
