@@ -27,8 +27,7 @@ import { TranslationService } from '../../core/services/translation.service';
   templateUrl: './nav-blank.component.html',
   styleUrl: './nav-blank.component.scss'
 })
-export class NavBlankComponent implements OnInit, OnDestroy , AfterViewInit{
-  private readonly _FlowbiteService = inject(FlowbiteService);
+export class NavBlankComponent implements OnInit, OnDestroy{
   private readonly _CategoriesService = inject(CategoriesService);
   private readonly _ProductsService = inject(ProductsService);
   private readonly _CartService = inject(CartService);
@@ -64,10 +63,7 @@ export class NavBlankComponent implements OnInit, OnDestroy , AfterViewInit{
       return ""
     }
   }
-  ngAfterViewInit(): void {
-    this._FlowbiteService.loadFlowbite(flowbite => {
-    });
-  }
+
   ngOnInit(): void {
     this._CategoriesService.getAllCategories().subscribe({
       next: (res) => {

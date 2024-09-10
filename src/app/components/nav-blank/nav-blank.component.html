@@ -18,7 +18,7 @@
         </button>
         <div
           id="userInfoDropdown"
-          class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-auto ms-3 translate-x-10"
+          class="z-[9999]  hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-auto ms-3 translate-x-10"
         >
           <ul
             class="p-2 text-sm text-gray-700 dark:text-gray-200"
@@ -59,10 +59,10 @@
           </ul>
         </div>
       </li>
-      <li>{{ "navbar.daily deals" | translate }}</li>
-      <li>{{ "navbar.contact us" | translate }}</li>
+      <li class="hidden lg:block">{{ "navbar.daily deals" | translate }}</li>
+      <li class="hidden lg:block">{{ "navbar.contact us" | translate }}</li>
     </ul>
-    <ul class="flex rounded-lg lg:space-x-8 items-center">
+    <ul class="flex rounded-lg lg:space-x-8 space-x-8 items-center">
       <li>
         <button
           data-modal-target="language-modal"
@@ -194,7 +194,7 @@
         </button>
         <div
           id="wishListDropDown"
-          class="hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-auto p-10 border relative z-50 max-w-[700px] ms-5 overflow-x-auto"
+          class="hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-auto p-10 border relative z-50 max-w-[100dvw] overflow-x-auto"
         >
           <h2 class="text-4xl font-bold mb-3">
             {{ "navbar.Your wishlist" | translate }}
