@@ -194,12 +194,12 @@
         </button>
         <div
           id="wishListDropDown"
-          class="hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-auto p-10 border relative z-50 max-w-[100dvw] overflow-x-auto"
+          class="hidden bg-white divide-y divide-gray-100 rounded-lg shadow p-10 border relative z-50 max-w-[100dvw] overflow-x-scroll "
         >
           <h2 class="text-4xl font-bold mb-3">
             {{ "navbar.Your wishlist" | translate }}
           </h2>
-          <div class="flex gap-4">
+          <div class="flex gap-2">
             @for (product of wishlistObject(); track $index) {
             <div
               class="w-[200px] group cursor-pointer h-full"
