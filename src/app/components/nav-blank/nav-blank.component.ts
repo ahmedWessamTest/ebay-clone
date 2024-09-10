@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnDestroy, OnInit, signal, Signal, WritableSignal } from '@angular/core';
+import { AfterViewInit, Component, computed, inject, OnDestroy, OnInit, signal, Signal, WritableSignal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ICategory } from '../../core/interfaces/icategory';
 import { IUserData } from '../../core/interfaces/iuser-data';
@@ -27,7 +27,7 @@ import { TranslationService } from '../../core/services/translation.service';
   templateUrl: './nav-blank.component.html',
   styleUrl: './nav-blank.component.scss'
 })
-export class NavBlankComponent implements OnInit, OnDestroy {
+export class NavBlankComponent implements OnInit, OnDestroy , AfterViewInit{
   private readonly _FlowbiteService = inject(FlowbiteService);
   private readonly _CategoriesService = inject(CategoriesService);
   private readonly _ProductsService = inject(ProductsService);
@@ -65,8 +65,6 @@ export class NavBlankComponent implements OnInit, OnDestroy {
     }
   }
   ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
     this._FlowbiteService.loadFlowbite(flowbite => {
     });
   }
