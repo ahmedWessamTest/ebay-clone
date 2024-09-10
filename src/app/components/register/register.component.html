@@ -1,0 +1,227 @@
+<app-nav-auth>
+  <div class="py-8 px-4">
+    <span class="text-gray-500 hidden md:inline">Already have account </span>
+    <a class="underline text-black" routerLink="/login">sign in</a>
+  </div>
+</app-nav-auth>
+<section class="py-8">
+  <div class="lg:grid lg:grid-cols-2">
+    <div class="hidden lg:block">
+      <img
+        src="./assets/images/register-image.jpg"
+        class="w-full block rounded-2xl object-cover h-full"
+        alt="register image"
+      />
+    </div>
+    <div class="flex justify-center">
+      <div>
+        <h1 class="text-3xl font-bold pb-4 text-[#191919]">
+          Create an account
+        </h1>
+        <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
+          <div class="flex justify-between pb-4">
+            <div>
+              <div class="relative">
+                <input
+                  type="text"
+                  id="name"
+                  class="block rounded-lg px-2 pb-2 pt-3 w-full text-sm text-gray-900 bg-gray-50 appearance-none focus:outline-none focus:ring-0 focus:border-2 focus:border-black peer"
+                  placeholder=" "
+                  formControlName="name"
+                  [class.border-red-700]="
+                    registerForm.get('name')?.errors &&
+                    (registerForm.get('name')?.touched ||
+                      registerForm.get('name')?.dirty)
+                  "
+                />
+                <label
+                  for="name"
+                  class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-3 z-10 origin-[0] start-2.5 peer-focus:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+                  >Full name</label
+                >
+                @if (registerForm.get('name')?.errors &&
+                (registerForm.get('name')?.touched ||
+                registerForm.get('name')?.dirty)) {
+                <p class="text-red-700 text-xs">please enter your name</p>
+                }
+              </div>
+            </div>
+            <div>
+              <div class="relative">
+                <input
+                  type="tel"
+                  id="phone"
+                  class="block rounded-lg px-2 pb-2 pt-3 w-full text-sm text-gray-900 bg-gray-50 appearance-none focus:outline-none focus:ring-0 focus:border-2 focus:border-black peer"
+                  placeholder=" "
+                  formControlName="phone"
+                  [class.border-red-700]="
+                    registerForm.get('phone')?.errors &&
+                    (registerForm.get('phone')?.touched ||
+                      registerForm.get('phone')?.dirty)
+                  "
+                />
+                <label
+                  for="phone"
+                  class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-3 z-10 origin-[0] start-2.5 peer-focus:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+                  >Phone number</label
+                >
+                @if (registerForm.get('phone')?.getError('required') &&
+                (registerForm.get('phone')?.touched ||
+                registerForm.get('phone')?.dirty)) {
+                <p class="text-red-700 text-xs">please enter your phone</p>
+                } @else if (registerForm.get('phone')?.getError('onlyPhone') &&
+                (registerForm.get('phone')?.touched ||
+                registerForm.get('phone')?.dirty)) {
+                <p class="text-red-700 text-xs">
+                  please enter valid phone number
+                </p>
+                }
+              </div>
+            </div>
+          </div>
+          <div class="relative pb-4">
+            <input
+              type="text"
+              id="email"
+              class="block rounded-lg px-2 pb-2 pt-3 w-full text-sm text-gray-900 bg-gray-50 appearance-none focus:outline-none focus:ring-0 focus:border-2 focus:border-black peer"
+              [class.border-red-700]="
+                registerForm.get('email')?.errors &&
+                (registerForm.get('email')?.touched ||
+                  registerForm.get('email')?.dirty)
+              "
+              placeholder=" "
+              formControlName="email"
+            />
+            <label
+              for="email"
+              class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-3 z-10 origin-[0] start-2.5 peer-focus:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+              >Email</label
+            >
+            @if(registerForm.get('email')?.getError('required') &&
+            (registerForm.get('email')?.touched)){
+            <p class="text-red-700 text-xs">please enter your email address</p>
+            } @else if(registerForm.get('email')?.getError('minLength') &&
+            registerForm.get('email')?.dirty){
+            <p class="text-red-700 text-xs">
+              Email address should be at least 6 characters.
+            </p>
+            } @else if (registerForm.get('email')?.getError('email') &&
+            registerForm.get('email')?.dirty) {
+            <p class="text-red-700 text-xs">
+              Email address is invalid. Please enter a valid email address.
+            </p>
+            }
+          </div>
+          <div class="relative pb-4">
+            <input
+              type="password"
+              id="password"
+              class="block rounded-lg px-2 pb-2 pt-3 w-full text-sm text-gray-900 bg-gray-50 appearance-none focus:outline-none focus:ring-0 focus:border-2 focus:border-black peer"
+              [class.border-red-700]="
+                registerForm.get('password')?.errors &&
+                registerForm.get('password')?.touched
+              "
+              placeholder=" "
+              formControlName="password"
+            />
+            <label
+              for="floating_filled"
+              class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-3 z-10 origin-[0] start-2.5 peer-focus:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+              >Password</label
+            >
+            @if(registerForm.get('password')?.getError('required') &&
+            registerForm.get('password')?.touched &&
+            (!registerForm.get('password')?.dirty ||
+            !registerForm.get('password')?.value)){
+            <p class="text-red-700 text-xs peer-focus:hidden">
+              Please enter a password.
+            </p>
+            } @else if (registerForm.get('password')?.errors &&
+            (registerForm.get('password')?.dirty ||
+            registerForm.get('password')?.touched)) {
+            <p
+              class="peer-focus:text-black text-red-700 text-xs first-letter:uppercase"
+            >
+              @if(registerForm.get('password')?.getError('atLeastOneLetter')){
+              <span>at least 1 letter, </span>
+              } @if(registerForm.get('password')?.getError('atLeastOneNumber')){
+              <span>a number </span>
+              } @if(registerForm.get('password')?.getError('minLength')){
+              <span>at least 8 chars</span>
+              }
+            </p>
+            }
+          </div>
+          <div class="relative pb-4">
+            <input
+              type="password"
+              id="rePassword"
+              class="block rounded-lg px-2 pb-2 pt-3 w-full text-sm text-gray-900 bg-gray-50 appearance-none focus:outline-none focus:ring-0 focus:border-2 focus:border-black peer"
+              placeholder=" "
+              formControlName="rePassword"
+            />
+            <label
+              for="rePassword"
+              class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-3 z-10 origin-[0] start-2.5 peer-focus:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+              >re-Password</label
+            >
+            @if(registerForm.get('rePassword')?.getError('required') &&
+            (registerForm.get('rePassword')?.touched ||
+            registerForm.get('rePassword')?.dirty)){
+            <p class="text-red-700 text-xs">please enter re-password</p>
+            } @else if (registerForm.get('rePassword')?.getError('compare') &&
+            (registerForm.get('rePassword')?.touched ||
+            registerForm.get('rePassword')?.dirty)) {
+            <p class="text-red-700 text-xs">password not match</p>
+
+            }
+          </div>
+          <p class="text-xs text-gray-500 pb-4">
+            By selecting <strong>Create personal account</strong>, you agree to
+            our
+            <a
+              class="underline"
+              href="https://www.ebay.com/help/policies/member-behaviour-policies/user-agreement?id=4259"
+              target="_blank"
+              >User Agreement</a
+            >
+            <br />
+            and acknowledge reading our
+            <a
+              class="underline"
+              href="https://www.ebay.com/help/policies/member-behaviour-policies/user-privacy-notice-privacy-policy?id=4260"
+              target="_blank"
+              >User Privacy Notice</a
+            >.
+          </p>
+          <button
+            class="text-center block w-full rounded-full py-2.5 font-bold text-white bg-[#3665f3] hover:bg-[#0F2796] disabled:bg-[#c7c7c7] disabled:cursor-not-allowed"
+            type="submit"
+            [disabled]="registerForm.invalid && !isLoading"
+          >
+            Create personal account
+          </button>
+          @if(isLoading()){
+          <span class="block text-center mt-4">
+            <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+          </span>
+          } @else if (errorMsg()){
+          <div
+            class="p-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert"
+          >
+            {{ errorMsg() }}
+          </div>
+          } @else if (successMsg()) {
+            <div
+              class="p-4 mt-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+              role="alert"
+            >
+              your email created
+            </div>
+          }
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

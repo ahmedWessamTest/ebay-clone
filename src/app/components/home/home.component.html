@@ -1,0 +1,84 @@
+<section class="py-4 hidden lg:block">
+  <owl-carousel-o [options]="homeOwlOptions">
+    <ng-template carouselSlide>
+      <div class="relative flex items-center">
+        <div class="absolute ms-5 text-white w-1/4">
+          <h2 class="text-4xl font-bold">
+            Refurbished: where quality meets savings!
+          </h2>
+          <p class="text-[17px] py-3">
+            Create your dream home on a budget with trusted brands
+          </p>
+          <a
+            href="#"
+            class="border rounded-full p-2 hover:text-[#191919] hover:bg-white transition duration-500"
+            >shop now <i class="fa-solid fa-arrow-right"></i
+          ></a>
+        </div>
+        <img
+          src="./assets/images/main_home_slider.JPG"
+          class="object-cover lg:block"
+          alt=""
+        />
+      </div>
+    </ng-template>
+    <ng-template carouselSlide>
+      <div class="flex justify-around items-center bg-[#4CE160]">
+        <div class="ms-5 text-[#1b561a] md:w-1/4">
+          <h2 class="text-4xl font-bold">
+            Refurbished: where quality meets savings!
+          </h2>
+          <p class="text-[17px] py-3">
+            Create your dream home on a budget with trusted brands
+          </p>
+          <a
+            href="#"
+            class="border border-[#1b561a] hover:bg-[#1b561a] hover:text-[#4CE160] rounded-full p-2 transition duration-500"
+            >back to school <i class="fa-solid fa-arrow-right"></i
+          ></a>
+        </div>
+        <span class="block">
+          <img
+            src="./assets/images/main_home_slider2.jpg"
+            class="object-cover w-full md:block h-96"
+            alt=""
+          />
+        </span>
+      </div>
+    </ng-template>
+  </owl-carousel-o>
+</section>
+@if(categoriesList()){
+<section class="py-4">
+  <owl-carousel-o [options]="CategoriesOptions">
+    @for (cat of categoriesList(); track $index) {
+    <ng-template carouselSlide>
+      <a [routerLink]="['/categories', cat._id]">
+        <div
+          class="rounded-full overflow-hidden hover:bg-[#EAEAEA] bg-[#f7f7f7] peer w-80 h-80 md:w-64 md:h-64 lg:w-40 lg:h-40 mx-auto"
+        >
+          <img
+            [src]="cat.image"
+            class="w-full block object-cover mix-blend-multiply"
+            [alt]="cat.name"
+          />
+        </div>
+        <h3 class="text-sm text-[#191919] peer-hover:underline text-center">
+          {{ cat.name }}
+        </h3>
+      </a>
+    </ng-template>
+    }
+  </owl-carousel-o>
+</section>
+} @if (productsList()) {
+<section>
+  <div class="container">
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3">
+      @for(product of productsList()?.slice(0,20); track product.id){
+      <app-product-card [productObject]="product"/>
+      }
+    </div>
+  </div>
+</section>
+}

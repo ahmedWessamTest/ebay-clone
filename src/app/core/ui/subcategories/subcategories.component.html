@@ -1,0 +1,26 @@
+<div>
+  <ul>
+    <li>
+      <a
+        href="#"
+        class="hover:bg-gray-100 w-full py-1 block font-medium"
+        [routerLink]="['/categories', cat()._id]"
+        [queryParamsHandling]="'merge'"
+        (click)="reloadCatComponent(cat()._id)"
+        >{{ cat().name }}
+      </a>
+    </li>
+    @for (subCat of subCatObject(); track subCat._id) {
+    <li>
+      <a
+        href="#"
+        class="hover:bg-gray-100 text-gray-500 w-full py-1 block font-medium"
+        [routerLink]="['/subCat',cat()._id, subCat._id]"
+        [queryParamsHandling]="'merge'"
+        (click)="reloadSubCatComponent(cat()._id,subCat._id)"
+        >{{ subCat.name }}</a
+      >
+    </li>
+    }
+  </ul>
+</div>

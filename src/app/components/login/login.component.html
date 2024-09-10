@@ -1,0 +1,133 @@
+<app-nav-auth>
+  <a
+    href="https://connect.ebay.com/srv/survey/a/reg.personalized"
+    target="_blank"
+    class="underline active:text-violet-800 text-sm"
+    >Tell us what you think</a
+  >
+</app-nav-auth>
+<section class="py-8">
+  <div class="flex justify-center content-center">
+    <div class="flex justify-center">
+      <div class="min-w-96">
+        <h1 class="text-3xl text-center font-bold pb-4 text-[#191919]">
+          Hello
+        </h1>
+        <span class="text-center block mb-4"
+          >Sign into ebay
+          <a routerLink="/register" class="underline text-blue-800"
+            >create an acount</a
+          ></span
+        >
+        <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+          <div class="relative pb-4">
+            <input
+              type="text"
+              id="email"
+              class="block rounded-lg px-2 pb-2 pt-3 w-full text-sm text-gray-900 bg-gray-50 appearance-none focus:outline-none focus:ring-0 focus:border-2 focus:border-black peer"
+              [class.border-red-700]="
+                loginForm.get('email')?.errors &&
+                (loginForm.get('email')?.touched ||
+                  loginForm.get('email')?.dirty)
+              "
+              placeholder=" "
+              formControlName="email"
+            />
+            <label
+              for="email"
+              class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-3 z-10 origin-[0] start-2.5 peer-focus:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+              >Email</label
+            >
+            @if(loginForm.get('email')?.getError('required') &&
+            (loginForm.get('email')?.touched)){
+            <p class="text-red-700 text-xs">please enter your email address</p>
+            } @else if(loginForm.get('email')?.getError('minLength') &&
+            loginForm.get('email')?.dirty){
+            <p class="text-red-700 text-xs">
+              Email address should be at least 6 characters.
+            </p>
+            } @else if (loginForm.get('email')?.getError('email') &&
+            loginForm.get('email')?.dirty) {
+            <p class="text-red-700 text-xs">
+              Email address is invalid. Please enter a valid email address.
+            </p>
+            }
+          </div>
+          <div class="relative pb-4">
+            <input
+              type="password"
+              id="password"
+              class="block rounded-lg px-2 pb-2 pt-3 w-full text-sm text-gray-900 bg-gray-50 appearance-none focus:outline-none focus:ring-0 focus:border-2 focus:border-black peer"
+              [class.border-red-700]="
+                loginForm.get('password')?.errors &&
+                loginForm.get('password')?.touched
+              "
+              placeholder=" "
+              formControlName="password"
+            />
+            <label
+              for="floating_filled"
+              class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-3 z-10 origin-[0] start-2.5 peer-focus:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+              >Password</label
+            >
+            @if(loginForm.get('password')?.getError('required') &&
+            loginForm.get('password')?.touched &&
+            (!loginForm.get('password')?.dirty ||
+            !loginForm.get('password')?.value)){
+            <p class="text-red-700 text-xs peer-focus:hidden">
+              Please enter a password.
+            </p>
+            } @else if (loginForm.get('password')?.errors &&
+            (loginForm.get('password')?.dirty ||
+            loginForm.get('password')?.touched)) {
+            <p
+              class="peer-focus:text-black text-red-700 text-xs first-letter:uppercase"
+            >
+              @if(loginForm.get('password')?.getError('atLeastOneLetter')){
+              <span>at least 1 letter, </span>
+              } @if(loginForm.get('password')?.getError('atLeastOneNumber')){
+              <span>a number </span>
+              } @if(loginForm.get('password')?.getError('minLength')){
+              <span>at least 8 chars</span>
+              }
+            </p>
+            }
+          </div>
+          <button
+            class="text-center block w-full rounded-full py-2.5 font-bold text-white bg-[#3665f3] hover:bg-[#0F2796] disabled:bg-[#c7c7c7] disabled:cursor-not-allowed"
+            type="submit"
+            [disabled]="loginForm.invalid && !isLoading"
+          >
+            Login to your account
+          </button>
+          @if(isLoading()){
+          <span class="block text-center mt-4">
+            <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+          </span>
+          } @else if (errorMsg()){
+          <div
+            class="p-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert"
+          >
+            {{ errorMsg() }}
+          </div>
+          } @else if (successMsg()) {
+          <div
+            class="p-4 mt-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+            role="alert"
+          >
+            logged in successful
+          </div>
+          }
+        </form>
+
+        <a
+          routerLink="/forgot"
+          class="underline text-center block mb-4 text-blue-800"
+        >
+          Forgot your password
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

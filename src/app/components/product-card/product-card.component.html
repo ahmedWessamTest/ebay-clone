@@ -1,0 +1,34 @@
+<div
+  class="h-full cursor relative"
+>
+  <span
+    title="add to wishlist"
+    class="absolute flex justify-center items-center cursor-pointer top-3 right-3 bg-white w-8 h-8 rounded-full border hover:bg-gray-300"
+    (click)="addProductToWishlist(productObject().id)"
+  >
+    <i
+      class="fa-heart"
+      [ngClass]="{
+      'fa-solid': productInWishList(),
+      'fa-regular': !productInWishList()
+      }"
+    ></i>
+  </span>
+  <div [routerLink]="['/details', productObject()._id]">
+    <div class="bg-gray-500 cursor-pointer">
+      <img
+        loading="lazy"
+        [src]="productObject().imageCover"
+        loading="lazy"
+        class="w-full block object-cover"
+        height="300px"
+        [alt]="productObject().title"
+      />
+    </div>
+    <h3 class="text-sm mt-4 text-[#191919] line-clamp-1">
+      {{ productObject().title | cutText : 4 }}
+    </h3>
+    <span class="block">{{ productObject().price | currency }}</span>
+    <span class="text-red-700">{{ productObject().sold || "" }} sold</span>
+  </div>
+</div>

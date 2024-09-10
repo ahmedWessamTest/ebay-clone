@@ -1,0 +1,77 @@
+@if(allordersObject()){
+<section class="py-5">
+  <div class="container">
+    <span class="block text-center text-[#1A56DB]"
+      ><i class="fa-solid fa-circle-check fa-6x"></i
+    ></span>
+    <div>
+      <h1 class="text-2xl font-bold mb-3">payment info:</h1>
+      <div class="grid grid-cols-1 lg:grid-cols-2 items-start">
+        <div class="bg-[#F7F7F7] rounded-2xl p-4 lg:order-1">
+          <h3 class="text-xl font-bold">Shipping Address :</h3>
+          <ul class="border-b">
+            <li>details: {{ allordersObject()?.shippingAddress?.details }}</li>
+            <li>phone: {{ allordersObject()?.shippingAddress?.phone }}</li>
+            <li>city: {{ allordersObject()?.shippingAddress?.city }}</li>
+          </ul>
+          <ul>
+            <li>payment method: {{ allordersObject()?.paymentMethodType }}</li>
+            <li>at: {{ allordersObject()?.createdAt | date }}</li>
+          </ul>
+        </div>
+        <div>
+          <h3>order items:</h3>
+          <div>
+            @for (order of allordersObject()?.cartItems; track order._id) {
+            <div class="border border-[#e5e5e5] p-4">
+              <div class="flex items-center gap-3">
+                <div class="rounded-full overflow-hidden w-14 h-14">
+                  <img
+                    [src]="order.product.brand.image"
+                    [alt]="order.product.brand.name"
+                  />
+                </div>
+                <div>
+                  <span class="underline text-[14px] text-[#191919]">{{
+                    order.product.brand.name
+                  }}</span>
+                  <span class="block text-[14px] text-[#707070]"
+                    >100% positive feedback</span
+                  >
+                </div>
+              </div>
+              <div class="flex items-center justify-between mt-3">
+                <div class="flex items-center gap-4">
+                  <div>
+                    <img
+                      [src]="order.product.imageCover"
+                      width="150px"
+                      [alt]="order.product.title"
+                    />
+                  </div>
+                  <a
+                    class="text-[#191919] font-bold text-[14px] underline max-w-[300px]"
+                    [routerLink]="['/details', order.product.id]"
+                  >
+                    {{ order.product.title }}
+                  </a>
+                </div>
+                <div>
+                  <span>Qty {{ order.count }}</span>
+                  <span class="block text-[#707070] text-[14px]"
+                    >eBay International Shipping</span
+                  >
+                </div>
+                <div class="text-xl text-[#191919] font-bold">
+                  USD {{ order.price }}
+                </div>
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+}

@@ -1,0 +1,27 @@
+<section>
+  <div class="container">
+    @if (productObject().length !== 0) {
+      <div class="grid grid-cols-1 lg:grid-cols-4 mb-3 gap-4">
+        @for (product of productObject() | paginate: {itemsPerPage:
+        itemsPerPage(), currentPage: currentPage(), totalItems: totalItems()} ;
+        track product.id) {
+        <app-product-card [productObject]="product" />
+        }
+      </div>
+      <pagination-controls
+        class="my-pagination"
+        (pageChange)="onPageChange($event)"
+        (pageBoundsCorrection)="onPageChange($event)"
+        previousLabel="Previous"
+        nextLabel="Next"
+        [maxSize]="itemsPerPage()"
+        [responsive]="true"
+        [directionLinks]="true"
+      >
+      </pagination-controls>
+    }
+    @else {
+      <h2 class="text-3xl text-center">sorry this sub category not available</h2>
+    }
+  </div>
+</section>
