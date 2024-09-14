@@ -1,9 +1,10 @@
-import { Component, inject, input, InputSignal, NgZone, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, inject, input, InputSignal, NgZone, OnDestroy, OnInit, Output, signal, WritableSignal } from '@angular/core';
 import { ICategory } from '../../interfaces/icategory';
 import { SubCategoriesService } from '../../services/sub-categories.service';
 import { Subscription } from 'rxjs';
 import { ISubCategory } from '../../interfaces/isub-category';
 import { Router, RouterLink } from '@angular/router';
+import { EventEmitter } from 'node:stream';
 
 @Component({
   selector: 'app-subcategories',
@@ -16,6 +17,11 @@ export class SubcategoriesComponent implements OnInit, OnDestroy {
   private readonly _SubCategoriesService = inject(SubCategoriesService);
   private readonly _Router = inject(Router);
   private readonly _NgZone = inject(NgZone)
+
+
+  closeListFn(): void {
+    this._SubCategoriesService.closeList.update((val) => !val );
+  }
 
   cat: InputSignal<ICategory> = input.required();
 

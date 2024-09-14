@@ -19,6 +19,7 @@ import { WishlistService } from '../../core/services/wishlist.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../core/services/translation.service';
+import { SubCategoriesService } from '../../core/services/sub-categories.service';
 
 @Component({
   selector: 'app-nav-blank',
@@ -27,7 +28,7 @@ import { TranslationService } from '../../core/services/translation.service';
   templateUrl: './nav-blank.component.html',
   styleUrl: './nav-blank.component.scss'
 })
-export class NavBlankComponent implements OnInit, OnDestroy{
+export class NavBlankComponent implements OnInit, OnDestroy {
   private readonly _CategoriesService = inject(CategoriesService);
   private readonly _ProductsService = inject(ProductsService);
   private readonly _CartService = inject(CartService);
@@ -35,6 +36,7 @@ export class NavBlankComponent implements OnInit, OnDestroy{
   private readonly _ToastrService = inject(ToastrService);
   private readonly _TranslationService = inject(TranslationService);
   private readonly _TranslateService = inject(TranslateService);
+  private readonly _SubCategoriesService = inject(SubCategoriesService);
   private readonly _Router = inject(Router);
   readonly _AuthService = inject(AuthService);
   searcher: WritableSignal<string> = signal('');
@@ -46,18 +48,20 @@ export class NavBlankComponent implements OnInit, OnDestroy{
   wishlistObject: Signal<IProduct[]> = computed(() => this._WishlistService.wishListUpdate());
   categoriesList: WritableSignal<ICategory[] | null> = signal(null);
   productList: WritableSignal<IProduct[]> = signal([]);
+  closeSubList: Signal<boolean> = computed(() => this._SubCategoriesService.closeList());
 
   private cartSub!: Subscription;
   private productsSub!: Subscription;
   private wishlistSub!: Subscription;
   private removeWishlistSub!: Subscription;
   private removeWishListGetSub!: Subscription;
+
   langImage(): string {
     const lang = this._TranslateService.currentLang;
     if (lang === 'en') {
       return "./assets/images/united-kingdom.png"
     }
-    else if(lang === 'ar') {
+    else if (lang === 'ar') {
       return "./assets/images/egypt.png"
     } else {
       return ""
@@ -106,6 +110,11 @@ export class NavBlankComponent implements OnInit, OnDestroy{
       this._Router.navigate(['/details', id])
     })
   }
+  reloadCatComponent(id: string): void {
+    this._Router.navigateByUrl('/', { skipLocationChange: false }).then(() => {
+      this._Router.navigate(['/categories', id])
+    })
+  }
   removeWishListItem(productId: string): void {
     this.removeWishlistSub = this._WishlistService.removeWishlist(productId).subscribe({
       next: (res) => {
@@ -120,7 +129,7 @@ export class NavBlankComponent implements OnInit, OnDestroy{
       }
     })
   }
-  changeLang(lang: string):void {
+  changeLang(lang: string): void {
     this._TranslationService.changeLang(lang);
   }
   ngOnDestroy(): void {

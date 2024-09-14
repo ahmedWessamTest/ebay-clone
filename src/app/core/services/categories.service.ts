@@ -10,6 +10,7 @@ export class CategoriesService {
   private readonly _HttpClient = inject(HttpClient);
   private readonly baseUrl = mainUrls.baseUrl;
 
+
   getAllCategories():Observable<any> {
     return this._HttpClient.get(`${this.baseUrl}/api/v1/categories`);
   }
