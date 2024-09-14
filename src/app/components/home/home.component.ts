@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, computed, inject, OnDestroy, OnInit, Renderer2, Signal, signal, WritableSignal } from '@angular/core';
+import { AfterViewChecked, Component, computed, inject, NgZone, OnDestroy, OnInit, Renderer2, Signal, signal, WritableSignal } from '@angular/core';
 import { ProductCardComponent } from "../product-card/product-card.component";
 import { ProductsService } from '../../core/services/products.service';
 import { IProduct } from '../../core/interfaces/iproduct';
@@ -22,7 +22,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   private readonly _ProductsService = inject(ProductsService);
   private readonly _CategoriesService = inject(CategoriesService);
   private readonly _WishlistService = inject(WishlistService);
-  private readonly _TranslateService = inject(TranslateService)
+  private readonly _TranslateService = inject(TranslateService);
+  private readonly _NgZone = inject(NgZone)
 
 
 
@@ -35,7 +36,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   getWishlistSub!: Subscription;
 
   homeOwlOptions: OwlOptions = {
-    rtl:true,
+    rtl: true,
     loop: true,
     mouseDrag: true,
     touchDrag: true,
@@ -84,36 +85,41 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this._TranslateService.onLangChange.subscribe((event)=>{
+    this._TranslateService.onLangChange.subscribe((event) => {
       this.updateOwlOptionsRtl(event.lang);
     })
+    this._NgZone.runOutsideAngular(() => {
+      this.getCategoriesSub = this._CategoriesService.getAllCategories().subscribe({
+        next: (res) => {
+          this.categoriesList.set(res.data);
+        },
+        error: (err) => {
+          console.error("Error in getAllCategories API: ", err);
+        }
+      })
 
-    this.getCategoriesSub = this._CategoriesService.getAllCategories().subscribe({
-      next: (res) => {
-        this.categoriesList.set(res.data);
-      },
-      error: (err) => {
-        console.error("Error in getAllCategories API: ", err);
-      }
+
+
+      this.getProductSub = this._ProductsService.getProducts().subscribe({
+        next: (res) => {
+          this.productsList.set(res.data);
+        },
+        error: (err) => {
+          console.error("Error in products API: ", err);
+        }
+      })
+
+      this.getWishlistSub = this._WishlistService.getUserWishList().subscribe({
+        next: (res) => {
+          this.wishlistObject.set(res.data);
+        }
+      })
     })
 
-    this.getProductSub = this._ProductsService.getProducts().subscribe({
-      next: (res) => {
-        this.productsList.set(res.data);
-      },
-      error: (err) => {
-        console.error("Error in products API: ", err);
-      }
-    })
 
-    this.getWishlistSub = this._WishlistService.getUserWishList().subscribe({
-      next: (res) => {
-        this.wishlistObject.set(res.data);
-      }
-    })
   }
-  updateOwlOptionsRtl(lang:string) {
-    const rtlLanguage = ['ar','en'];
+  updateOwlOptionsRtl(lang: string) {
+    const rtlLanguage = ['ar', 'en'];
     this.homeOwlOptions = {
       ...this.homeOwlOptions,
       rtl: rtlLanguage.includes(lang)
