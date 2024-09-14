@@ -4,7 +4,6 @@ import { SubCategoriesService } from '../../services/sub-categories.service';
 import { Subscription } from 'rxjs';
 import { ISubCategory } from '../../interfaces/isub-category';
 import { Router, RouterLink } from '@angular/router';
-import { EventEmitter } from 'node:stream';
 
 @Component({
   selector: 'app-subcategories',
