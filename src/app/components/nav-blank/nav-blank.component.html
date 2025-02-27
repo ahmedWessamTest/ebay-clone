@@ -18,7 +18,7 @@
         </button>
         <div
           id="userInfoDropdown"
-          class="z-[9999]  hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-auto ms-3 translate-x-10"
+          class="z-[9999] hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-auto ms-3 translate-x-10"
         >
           <ul
             class="p-2 text-sm text-gray-700 dark:text-gray-200"
@@ -86,14 +86,14 @@
           <div class="relative p-4 w-full max-w-2xl max-h-full">
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
               <div
-                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t "
+                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t"
               >
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                   {{ "navbar.Choose language" | translate }}
                 </h3>
                 <button
                   type="button"
-                  class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center "
+                  class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                   data-modal-hide="language-modal"
                 >
                   <svg
@@ -117,7 +117,7 @@
                 <button
                   id="languageDropDown"
                   data-dropdown-toggle="language-dropdown"
-                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 "
+                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600"
                   type="button"
                 >
                   {{ "navbar.languages" | translate }}
@@ -194,7 +194,7 @@
         </button>
         <div
           id="wishListDropDown"
-          class="hidden bg-white divide-y divide-gray-100 rounded-lg shadow p-10 border relative z-50 max-w-[100dvw] overflow-x-scroll "
+          class="hidden bg-white divide-y divide-gray-100 rounded-lg shadow p-10 border relative z-50 max-w-[100dvw] overflow-x-scroll"
         >
           <h2 class="text-4xl font-bold mb-3">
             {{ "navbar.Your wishlist" | translate }}
@@ -207,12 +207,13 @@
               [queryParamsHandling]="'merge'"
               (click)="reloadComponent(product.id)"
             >
-              <div class="border group-hover:border-blue-700">
+              <div
+                class="border w-[150px] h-[150px] group-hover:border-blue-700"
+              >
                 <img
                   [src]="product.imageCover"
-                  width="200px"
-                  height="200px"
                   [alt]="product.title"
+                  class="h-[150px] w-[150px]"
                 />
               </div>
               <h3 class="text-xl font-bold underline group-hover:text-blue-700">

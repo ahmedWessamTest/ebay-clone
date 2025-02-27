@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, computed, inject, OnDestroy, OnInit, signal, Signal, WritableSignal } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit, signal, Signal, WritableSignal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ICategory } from '../../core/interfaces/icategory';
 import { IUserData } from '../../core/interfaces/iuser-data';

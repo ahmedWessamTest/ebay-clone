@@ -8,7 +8,6 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { ICategory } from '../../core/interfaces/icategory';
 import { RouterLink } from '@angular/router';
 import { WishlistService } from '../../core/services/wishlist.service';
-import { TranslationService } from '../../core/services/translation.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
