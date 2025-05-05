@@ -7,7 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CutTextPipe implements PipeTransform {
 
   transform(value: string, numberOfText: number): string {
-    return value.split(" ", numberOfText).join('');
+    return value.split(" ", numberOfText).join(' ');
   }
 
 }
